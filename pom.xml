@@ -95,6 +95,10 @@
 								<businessGroupId>${env.BUSINESS_GROUP_ID}</businessGroupId>
 								<replicas>1</replicas>
 								<vCores>0.1</vCores>
+								<properties>
+									<env>dev</env>
+									<key-decrypt>sanjay</key-decrypt>
+								</properties>
 							</cloudhub2Deployment>
 						</configuration>
 						<executions>
