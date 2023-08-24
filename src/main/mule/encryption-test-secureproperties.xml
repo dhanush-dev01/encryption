@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:db="http://www.mulesoft.org/schema/mule/db"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/db http://www.mulesoft.org/schema/mule/db/current/mule-db.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="emp-db-testpropertiesFlow" doc:id="43cc62de-6ed7-4292-9c23-fd7411546e54" >
+		<http:listener doc:name="Listener" doc:id="b4dfc02b-5a34-44d0-9cbd-a632f5d6ec8c" config-ref="HTTP_Listener_config" path="/get-decryptedValues" allowedMethods="GET"/>
+		<logger level="INFO" doc:name="Flow Start" doc:id="e4ce2519-66d8-498c-bb58-836954003da5" message='#["Flow start "]'/>
+		<ee:transform doc:name="Transform Message" doc:id="e30a1709-1d94-4d7c-8b85-545f701d089e" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"username": Mule::p("secure::username"),
+	"password": Mule::p("secure::password")
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
